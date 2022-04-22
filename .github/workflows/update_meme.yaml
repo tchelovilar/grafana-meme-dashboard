@@ -1,9 +1,12 @@
 name: Meme Update
 
 on:
-  push
-  # push:
-  #   branches: [ master ]
+  push:
+    branches: [ master ]
+
+  schedule:
+    - cron: '0 9-20 * * *'
+
 
 jobs:
   run:
@@ -44,4 +47,5 @@ jobs:
       run: |
         git add dash
         git commit -m "Updating meme to $TWEET_ID"
-        # git push origin master
+        git push origin master
+        echo "::notice::New tweet: $TWEET_ID"
