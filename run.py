@@ -81,3 +81,5 @@ with open("dash/index.html", "w") as index_file:
 
 with open("dash/tweet_id", "w") as tweet_id_file:
     tweet_id_file.write(tweet_id)
+
+print(f"::set-output name=new_tweet_id::{tweet_id}")

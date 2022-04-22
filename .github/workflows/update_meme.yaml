@@ -1,0 +1,47 @@
+name: Meme Update
+
+on:
+  push
+  # push:
+  #   branches: [ master ]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TOKEN: ${{ secrets.TOKEN }}
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.8'
+
+    - name: Setup git
+      run: |
+        git remote remove origin
+        git remote add origin https://$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY
+        git config --local user.name "meme-bot"
+        git config --local user.email bot@me.me
+    
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    
+    - name: Update meme
+      id: update_meme
+      run: |
+        python run.py
+
+    - name: Commit changes
+      if: ${{ steps.update_meme.outputs.new_tweet_id }}
+      env:
+        TWEET_ID: ${{ steps.update_meme.outputs.new_tweet_id }}
+      run: |
+        git add dash
+        git commit -m "Updating meme to $TWEET_ID"
+        # git push origin master
