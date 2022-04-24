@@ -86,4 +86,4 @@ with open("dash/tweet_id", "w") as tweet_id_file:
     tweet_id_file.write(tweet_id)
 
 print(f"::set-output name=new_tweet_id::{tweet_id}")
-print(f"::set-output name=tweet_text::{tweet_message}")
+print(f"::set-output name=tweet_message::{tweet_message}")
