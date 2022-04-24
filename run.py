@@ -8,6 +8,9 @@ import re
 
 from string import Template
 
+TWITTER_CHANNEL = "PR0GRAMMERHUM0R"
+bearer_token = os.getenv('TOKEN')
+
 
 def get_recent(query, headers, max_results=10):
     url = "https://api.twitter.com/2/tweets/search/recent"
@@ -25,9 +28,8 @@ def get_recent(query, headers, max_results=10):
     return response.json()
 
 
-bearer_token = os.getenv('TOKEN')
 headers = {"Authorization": "Bearer {}".format(bearer_token)}
-query = "from:PR0GRAMMERHUM0R"
+query = f"from:{TWITTER_CHANNEL}"
 tweet_info = get_recent(query, headers)
 
 
@@ -54,7 +56,7 @@ for media in tweet_info['includes']['media']:
         media_type = media["type"]
         media_name = media_url.split("/")[-1]
 
-if media_type not in ["photo", "animated_gif"]:
+if media_type not in ["photo"]:
     print(f"Media type '{media_type}' not supported")
     sys.exit(0)
 
@@ -66,13 +68,14 @@ image_path = os.path.join(images_dir, media_name)
 urllib.request.urlretrieve(media_url, image_path)
 
 
-with open("template/index.j2") as index_template_file:
+with open("template/index.html") as index_template_file:
     template = Template(index_template_file.read())
 
 clean_text = re.sub(r'https://[\w\.]*/[\w]*', '', tweet_message)
 template_values = {
     "message": clean_text,
-    "image": media_name
+    "image": media_name,
+    "twitter_channel": TWITTER_CHANNEL
 }
 result = template.substitute(template_values)
 
@@ -83,3 +86,4 @@ with open("dash/tweet_id", "w") as tweet_id_file:
     tweet_id_file.write(tweet_id)
 
 print(f"::set-output name=new_tweet_id::{tweet_id}")
+print(f"::set-output name=tweet_text::{tweet_message}")
