@@ -1,0 +1,60 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 202,
+    "links": [],
+    "panels": [
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {},
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 24,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "content": "<center>\n<iframe src=\"https://tchelovilar.github.io/grafana-meme-dashboard/dash/index.html\" width=\"1400\" height=\"1000\"></iframe>\n</center>",
+          "mode": "html"
+        },
+        "pluginVersion": "7.5.4",
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Fun",
+        "type": "text"
+      }
+    ],
+    "schemaVersion": 27,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "something funny",
+    "uid": "MsV85msvMSV",
+    "version": 9
+  }
